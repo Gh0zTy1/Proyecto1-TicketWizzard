@@ -4,6 +4,21 @@
  */
 package Guis;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author caarl
@@ -16,6 +31,106 @@ public class frmTicket extends javax.swing.JFrame {
     public frmTicket() {
         initComponents();
     }
+    
+    
+private void generarPDF() {
+    String vendedor = txtVendedor.getText();
+    String comprador = txtComprador.getText();
+    String evento = txtEvento.getText();
+    String cantidad = txtCantidad.getText();
+    String total = txtTotal.getText();
+
+    // Archivo PDF a generar
+    Document document = new Document();
+    String fileName = "TicketVenta.pdf";
+
+    try {
+        // Configuración para generar el PDF
+        PdfWriter.getInstance(document, new FileOutputStream(fileName));
+        document.open();
+
+        // Título del ticket
+        Font titleFont = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD);
+        Paragraph title = new Paragraph("TICKET", titleFont);
+        title.setAlignment(Element.ALIGN_CENTER);
+        document.add(title);
+
+        // Separación con línea
+        document.add(new Paragraph("\n"));
+        document.add(new LineSeparator());
+
+        // Información del vendedor y comprador
+        Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+        document.add(new Paragraph("Vendedor: " + vendedor, boldFont));
+        document.add(new Paragraph("Comprador: " + comprador, boldFont));
+        
+        document.add(new Paragraph("\n"));  // Espaciado
+
+        // Línea de separación
+        document.add(new LineSeparator());
+
+        // Información del evento
+        document.add(new Paragraph("Evento: " + evento, boldFont));
+        document.add(new Paragraph("Cantidad: " + cantidad, boldFont));
+        document.add(new Paragraph("Total a Pagar: $" + total, boldFont));
+
+        document.add(new Paragraph("\n"));  // Espaciado
+
+        // Línea de separación
+        document.add(new LineSeparator());
+
+        // Mensaje de agradecimiento
+        Font footerFont = new Font(Font.FontFamily.HELVETICA, 10, Font.ITALIC);
+        Paragraph footer = new Paragraph("Gracias por su compra", footerFont);
+        footer.setAlignment(Element.ALIGN_CENTER);
+        document.add(footer);
+
+        // Agregar la fecha de emisión del ticket
+        Paragraph fecha = new Paragraph("Fecha: " + LocalDate.now().toString(), footerFont);
+        fecha.setAlignment(Element.ALIGN_CENTER);
+        document.add(fecha);
+
+        // Cierre del documento
+        document.close();
+
+        JOptionPane.showMessageDialog(this, "PDF generado con éxito. Ubicación: " + new File(fileName).getAbsolutePath(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        abrirPDF(fileName);
+    } catch (DocumentException de) {
+        JOptionPane.showMessageDialog(this, "Error al generar el PDF: " + de.getMessage(), "Error de Documento", JOptionPane.ERROR_MESSAGE);
+    } catch (FileNotFoundException fnfe) {
+        JOptionPane.showMessageDialog(this, "No se pudo encontrar el archivo para guardar el PDF: " + fnfe.getMessage(), "Error de Archivo", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
+    private void abrirPDF(String fileName) {
+    try {
+        File pdfFile = new File(fileName);
+        if (pdfFile.exists()) {
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(pdfFile);
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "La apertura automática no está soportada en este sistema.\n" +
+                    "Por favor, abra el archivo manualmente: " + pdfFile.getAbsolutePath(),
+                    "No se puede abrir automáticamente", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "El archivo PDF generado no existe en la ubicación esperada.",
+                "Archivo No Encontrado", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (IOException ex) {
+        JOptionPane.showMessageDialog(this, 
+            "Error al abrir el archivo PDF: " + ex.getMessage(),
+            "Error de IO", 
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,11 +148,11 @@ public class frmTicket extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txtEvento = new javax.swing.JTextField();
+        txtComprador = new javax.swing.JTextField();
+        txtVendedor = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
         btnImCom = new javax.swing.JButton();
         btnVolverTusBoletos = new javax.swing.JButton();
 
@@ -63,21 +178,21 @@ public class frmTicket extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel7.setText("Total");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtEventoActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtComprador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtCompradorActionPerformed(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtVendedorActionPerformed(evt);
             }
         });
 
@@ -114,13 +229,13 @@ public class frmTicket extends javax.swing.JFrame {
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel5)
-                                .addComponent(jTextField1)
-                                .addComponent(jTextField2)
-                                .addComponent(jTextField3)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtEvento)
+                                .addComponent(txtComprador)
+                                .addComponent(txtVendedor)
+                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(236, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
@@ -137,23 +252,23 @@ public class frmTicket extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(1, 1, 1)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtComprador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImCom)
@@ -175,16 +290,16 @@ public class frmTicket extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVendedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtVendedorActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void txtCompradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCompradorActionPerformed
+    }//GEN-LAST:event_txtCompradorActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEventoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtEventoActionPerformed
 
     private void btnVolverTusBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverTusBoletosActionPerformed
       // Creamos el nuevo frame
@@ -198,7 +313,7 @@ public class frmTicket extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverTusBoletosActionPerformed
 
     private void btnImComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImComActionPerformed
-        // TODO add your handling code here:
+        generarPDF();
     }//GEN-LAST:event_btnImComActionPerformed
 
     /**
@@ -246,10 +361,10 @@ public class frmTicket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtComprador;
+    private javax.swing.JTextField txtEvento;
+    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextField txtVendedor;
     // End of variables declaration//GEN-END:variables
 }

@@ -60,14 +60,14 @@
                                   </Group>
                                   <Component id="jLabel3" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField3" max="32767" attributes="0"/>
-                                  <Component id="jTextField4" min="-2" pref="125" max="-2" attributes="0"/>
+                                  <Component id="txtEvento" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtComprador" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtVendedor" max="32767" attributes="0"/>
+                                  <Component id="txtCantidad" min="-2" pref="125" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                  <Component id="jTextField5" min="-2" pref="129" max="-2" attributes="0"/>
+                                  <Component id="txtTotal" min="-2" pref="129" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -91,23 +91,23 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtEvento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                  <Component id="jTextField2" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtComprador" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextField3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtVendedor" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextField4" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCantidad" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextField5" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTotal" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="32" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnImCom" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -167,24 +167,24 @@
             <Property name="text" type="java.lang.String" value="Total"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtEvento">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEventoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="txtComprador">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCompradorActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="txtVendedor">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtVendedorActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField4">
+        <Component class="javax.swing.JTextField" name="txtCantidad">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField5">
+        <Component class="javax.swing.JTextField" name="txtTotal">
         </Component>
         <Component class="javax.swing.JButton" name="btnImCom">
           <Properties>
