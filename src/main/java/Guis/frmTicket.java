@@ -82,8 +82,18 @@ public class frmTicket extends javax.swing.JFrame {
         });
 
         btnImCom.setText("Imprimir Comprobante");
+        btnImCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImComActionPerformed(evt);
+            }
+        });
 
         btnVolverTusBoletos.setText("Salir");
+        btnVolverTusBoletos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverTusBoletosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,6 +185,21 @@ public class frmTicket extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void btnVolverTusBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverTusBoletosActionPerformed
+      // Creamos el nuevo frame
+        frmTusBoletos reg = new frmTusBoletos();
+
+        // Mostramos el nuevo frame
+        reg.setVisible(true);
+
+        // Ocultamos la ventana actual en lugar de cerrarla
+        this.setVisible(false); 
+    }//GEN-LAST:event_btnVolverTusBoletosActionPerformed
+
+    private void btnImComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImComActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnImComActionPerformed
 
     /**
      * @param args the command line arguments

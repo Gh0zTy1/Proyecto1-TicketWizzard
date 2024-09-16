@@ -14,7 +14,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+      // Creamos el nuevo frame
+        frmInicioSesion ini = new frmInicioSesion();
+
+        // Mostramos el nuevo frame
+        ini.setVisible(true);
+
+      
     }
     
 }
